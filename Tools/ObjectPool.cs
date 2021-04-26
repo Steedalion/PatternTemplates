@@ -1,17 +1,18 @@
 ﻿using System;
 
-namespace Toolbox.Tools
+namespace UnityToolbox.Tools
 {
-    public class ObjectPool<T> 
+    public class ObjectPool<T>
     {
-        private T[] pool;
-        public int PoolSize { get; }
+        private readonly T[] pool;
 
         public ObjectPool(int poolSize)
         {
             PoolSize = poolSize;
             pool = new T[poolSize];
         }
+
+        public int PoolSize { get; }
 
         public T GetItem(int index)
         {
@@ -21,10 +22,9 @@ namespace Toolbox.Tools
 
         public void SetItem(int index, T item)
         {
-             if (index > PoolSize) throw new PoolOutOfBoundException("Trying to get at index larger than pool size");
-             pool[index] = item;
+            if (index > PoolSize) throw new PoolOutOfBoundException("Trying to get at index larger than pool size");
+            pool[index] = item;
         }
-
     }
 
     public class PoolOutOfBoundException : Exception

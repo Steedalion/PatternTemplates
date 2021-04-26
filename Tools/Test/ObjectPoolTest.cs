@@ -1,14 +1,14 @@
 ﻿using System;
 using NUnit.Framework;
-using Patterns;
 using UnityEngine;
+using UnityToolbox.Tools;
 
 namespace Toolbox.Tools.Test
 {
     public class ObjectPoolTest
     {
+        private readonly int initialPoolLength = 10;
         private ObjectPool<GameObject> objectPool;
-        private int initialPoolLength = 10;
 
 
         [SetUp]
@@ -26,10 +26,7 @@ namespace Toolbox.Tools.Test
         [Test]
         public void ObjectsShouldNotBeInstantiatedInitially()
         {
-            for (int i = 0; i < objectPool.PoolSize; i++)
-            {
-                Assert.Null(objectPool.GetItem(i));
-            }
+            for (int i = 0; i < objectPool.PoolSize; i++) Assert.Null(objectPool.GetItem(i));
         }
 
         [Test]
@@ -54,7 +51,6 @@ namespace Toolbox.Tools.Test
         public void SetAll()
         {
             for (int i = 0; i < objectPool.PoolSize; i++)
-            {
                 try
                 {
                     objectPool.SetItem(i, new GameObject());
@@ -63,7 +59,6 @@ namespace Toolbox.Tools.Test
                 {
                     Assert.Fail("should not be an error when setting");
                 }
-            }
         }
 
 

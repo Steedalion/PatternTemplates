@@ -1,14 +1,12 @@
-﻿namespace Patterns
+﻿namespace UnityToolbox.Tools
 {
-    public class Singleton<T> where T: new()
+    public class Singleton<T> where T : new()
     {
         private static T instance;
+
         public static T Instance()
         {
-            if (instance ==null)
-            {
-             instance = new T();
-            }
+            if (instance == null) instance = new T();
             return instance;
         }
     }

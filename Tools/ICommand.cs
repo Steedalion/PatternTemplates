@@ -1,4 +1,4 @@
-﻿namespace Patterns
+﻿namespace UnityToolbox.Tools
 {
     public interface ICommand
     {

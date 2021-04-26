@@ -1,5 +1,5 @@
 {
-    "name": "PatternTests",
+    "name": "ToolTests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

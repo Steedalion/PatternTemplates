@@ -1,44 +1,44 @@
 ﻿using System;
 
-namespace Patterns
+namespace UnityToolbox.Tools
 {
-    public class FsmState<TStateAsEnum, TSelfClass> where TStateAsEnum : Enum where TSelfClass : FsmState<TStateAsEnum,TSelfClass>
+    public class FsmState<TStateAsEnum, TSelfClass> where TStateAsEnum : Enum
+        where TSelfClass : FsmState<TStateAsEnum, TSelfClass>
     {
-        protected FsmStage Stage;
+        protected FsmStage currentStage;
         private TSelfClass nextState;
-        protected TStateAsEnum StateName;
+        protected TStateAsEnum stateName;
 
         protected virtual void Enter()
         {
-            Stage = FsmStage.Update;
+            currentStage = FsmStage.Update;
         }
 
         protected virtual void StateUpdate()
         {
-            
         }
 
         protected virtual void Exit()
         {
-            Stage = FsmStage.Exit;
+            currentStage = FsmStage.Exit;
         }
 
         protected void ProceedToNextStage(TSelfClass next)
         {
             nextState = next;
-            Stage = FsmStage.Exit;
+            currentStage = FsmStage.Exit;
         }
 
         protected void Initialize()
         {
-            Stage = FsmStage.Enter;
+            currentStage = FsmStage.Enter;
         }
 
         public TSelfClass Process()
         {
-            if (Stage == FsmStage.Enter) Enter();
-            if (Stage == FsmStage.Update) StateUpdate();
-            if (Stage != FsmStage.Exit) return (TSelfClass) this;
+            if (currentStage == FsmStage.Enter) Enter();
+            if (currentStage == FsmStage.Update) StateUpdate();
+            if (currentStage != FsmStage.Exit) return (TSelfClass) this;
             Exit();
             return nextState;
         }
