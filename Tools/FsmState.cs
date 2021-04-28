@@ -2,12 +2,12 @@
 
 namespace UnityToolbox.Tools
 {
-    public class FsmState<TStateAsEnum, TSelfClass> where TStateAsEnum : Enum
-        where TSelfClass : FsmState<TStateAsEnum, TSelfClass>
+    public class FsmState<TSelfClass,TStateAsEnum> where TStateAsEnum : Enum
+        where TSelfClass : FsmState<TSelfClass, TStateAsEnum>
     {
         protected FsmStage currentStage;
         private TSelfClass nextState;
-        protected TStateAsEnum stateName;
+        public TStateAsEnum stateName { get; protected set; }
 
         protected virtual void Enter()
         {
