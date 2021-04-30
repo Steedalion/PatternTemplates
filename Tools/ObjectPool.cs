@@ -25,6 +25,11 @@ namespace UnityToolbox.Tools
             if (index > PoolSize) throw new PoolOutOfBoundException("Trying to get at index larger than pool size");
             pool[index] = item;
         }
+
+        public T[] GetPoolAsArray()
+        {
+            return pool;
+        }
     }
 
     public class PoolOutOfBoundException : Exception

@@ -5,16 +5,17 @@ public class GOPool : MonoBehaviour
 {
     public GameObject[] types;
     public int poolSize = 50;
-    private ObjectPool<GameObject> pool;
+    protected ObjectPool<GameObject> pool;
 
-    private void Awake()
+     protected virtual void Awake()
     {
         pool = new ObjectPool<GameObject>(poolSize);
+        CreatePool();
     }
 
-    private void Start()
+     protected virtual void Start()
     {
-        CreatePool();
+        
     }
 
     public GameObject PopDeactivatedObjectOrReturnNull()
