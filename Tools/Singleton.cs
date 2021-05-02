@@ -2,7 +2,7 @@
 
 namespace UnityToolbox.Tools
 {
-    public class Singleton<T> : IDisposable where T : new()
+    public class Singleton<T> where T : new()
     {
         private static T instance;
 
@@ -22,12 +22,6 @@ namespace UnityToolbox.Tools
             }
         }
 
-
-        public void Dispose()
-        {
-            Console.WriteLine("Disposing " + this);
-            //TODO: Should a signleton have dispose?
-        }
     }
 
     public class MultipleSingleton : Exception

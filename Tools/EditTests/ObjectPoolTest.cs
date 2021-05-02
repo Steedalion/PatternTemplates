@@ -54,7 +54,7 @@ namespace UnityToolbox.Tools.EditTests
                 {
                     objectPool.SetItem(i, new GameObject());
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Assert.Fail("should not be an error when setting");
                 }

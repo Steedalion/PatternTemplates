@@ -1,34 +1,23 @@
-﻿using System;
-using System.Collections;
-using NUnit.Framework;
-using UnityEngine.TestTools;
-using UnityToolbox.Tools;
+﻿using NUnit.Framework;
 
-namespace Toolbox.Tools.Test
+namespace UnityToolbox.Tools.EditTests
 {
     public class SingletonObjectTest
     {
         [Test]
         public void ShouldNotBeNull()
         {
-                Assert.IsNotNull(Singleton<Object>.Instance());
+                Assert.IsNotNull(Singleton<object>.Instance());
         }
 
 
-        [Test]
-        public void DisposeAnExistingSingletonSHouldBeNull()
-        {
-            Assert.IsNull(Singleton<Object>.Instance());
-            
-        }
+      
 
         [Test]
-        public void CreateTwoSignletonsShouldThrowException()
+        public void CreateTwoSingletonShouldThrowException()
         {
-            Singleton<Object>.Instance();
-            Singleton<Object> singleton2 = null;
-            Assert.Throws<MultipleSingleton>(() => singleton2 = new Singleton<object>());
-            singleton2?.Dispose();
+            Singleton<object>.Instance();
+            Assert.Throws<MultipleSingleton>(() => { new Singleton<object>(); });
         }
     }
 }
