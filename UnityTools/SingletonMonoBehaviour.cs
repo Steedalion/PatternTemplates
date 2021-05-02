@@ -1,23 +1,31 @@
 ﻿using UnityEngine;
 
-public class SingletonMonoBehaviour<T> : MonoBehaviour where T:SingletonMonoBehaviour<T>
+namespace UnityToolbox.UnityTools
 {
-    public static T Instance { get; private set; }
-
-    protected virtual void Awake()
+    public class SingletonMonoBehaviour<T> : MonoBehaviour where T:SingletonMonoBehaviour<T>
     {
-        if (Instance != null)
-        {
-            Debug.LogError(this + "Trying to instance a second instance of singleton");
-        }
-        else
-        {
-            Instance = (T) this;
-        }
-    }
+        public static T Instance { get; private set; }
 
-    protected virtual void OnDestroy()
-    {
-        if (Instance == null) Instance = null;
+        protected virtual void Awake()
+        {
+            if (Instance != null)
+            {
+                Debug.LogError("Trying to instance a second instance of singleton");
+                //TODO: This should throw exception, not logerror
+
+                // throw new MultipleSingleton("");
+            }
+            else
+            {
+                Instance = (T) this;
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (Instance == null) Instance = null;
+        }
+
+    
     }
 }

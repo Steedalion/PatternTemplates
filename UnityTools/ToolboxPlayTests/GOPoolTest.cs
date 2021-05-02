@@ -3,56 +3,55 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests_PlayMode
+namespace UnityToolbox.UnityTools.ToolboxPlayTests
 {
     public class GOPoolTest
     {
         private GameObject gameObject;
-        
-         [UnityTearDown]
+
+        [UnityTearDown]
         public IEnumerator DestroyCreatedObjects()
         {
-            GameObject.Destroy(gameObject);
+            Object.Destroy(gameObject);
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator SingleTypeSingleObject()
         {
-            GOPool goPool = BuildPoolOfSingleType(new GameObject(),1);
+            GOPool goPool = BuildPoolOfSingleType(new GameObject(), 1);
             yield return null;
-         
-            GameObject fromPool =  goPool.PopDeactivatedObjectOrReturnNull();
-            
+
+            GameObject fromPool = goPool.PopDeactivatedObjectOrReturnNull();
+
             Assert.IsNotNull(fromPool);
             yield return null;
         }
-        
+
         [UnityTest]
-         public IEnumerator SingleTypeMultipleSingleObjects()
-         {
-             int poolsize = 10;
-            GOPool goPool = BuildPoolOfSingleType(new GameObject(),10);
+        public IEnumerator SingleTypeMultipleSingleObjects()
+        {
+            const int poolSize = 10;
+            GOPool goPool = BuildPoolOfSingleType(new GameObject(), 10);
             yield return null;
 
-            for (int i = 0; i < poolsize; i++)
+            for (int i = 0; i < poolSize; i++)
             {
-                GameObject fromPool =  goPool.PopDeactivatedObjectOrReturnNull(); 
-                Assert.IsNotNull(fromPool, "Expected not null @ "+i); 
+                GameObject fromPool = goPool.PopDeactivatedObjectOrReturnNull();
+                Assert.IsNotNull(fromPool, "Expected not null @ " + i);
                 fromPool.SetActive(true);
             }
-            
-            yield return null;
-        }    
-         public IEnumerator SingleTypeMultipleObjects()
-        {
-                        int poolsize;
 
-            GOPool goPool = BuildPoolOfSingleType(new GameObject(),1);
             yield return null;
-         
-            GameObject fromPool =  goPool.PopDeactivatedObjectOrReturnNull();
-            
+        }
+
+        public IEnumerator SingleTypeMultipleObjects()
+        {
+            GOPool goPool = BuildPoolOfSingleType(new GameObject(), 1);
+            yield return null;
+
+            GameObject fromPool = goPool.PopDeactivatedObjectOrReturnNull();
+
             Assert.IsNotNull(fromPool);
             yield return null;
         }
@@ -67,14 +66,12 @@ namespace Tests_PlayMode
 
         private GOPool BuildPool(GameObject[] prefabs, int poolsize)
         {
-            gameObject = GameObject.Instantiate(new GameObject());
+            gameObject = Object.Instantiate(new GameObject());
             GOPool goPool = gameObject.AddComponent<GOPool>();
-            
+
             goPool.types = prefabs;
             goPool.poolSize = poolsize;
             return goPool;
         }
-
-       
     }
 }

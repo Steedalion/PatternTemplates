@@ -1,24 +1,59 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Object = UnityEngine.Object;
 
-public class SingletonMonoTest
+namespace UnityToolbox.UnityTools.ToolboxPlayTests
 {
-    [UnityTest]
-    public IEnumerator SingletonMonoTestWithEnumeratorPasses()
+    public class SingletonMonoTest
     {
-        GameObject gameObject = GameObject.Instantiate(new GameObject());
-        TestSingletonMono singleton = gameObject.AddComponent<TestSingletonMono>();
-        Assert.IsNotNull(singleton);
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
+        GameObject gameObject;
+        private TestSingletonMono singleton;
 
-    public class TestSingletonMono: SingletonMonoBehaviour<TestSingletonMono>
-    {
-        
+        [UnitySetUp]
+        public IEnumerator CreateStuff()
+        {
+            gameObject = Object.Instantiate(new GameObject());
+            singleton = gameObject.AddComponent<TestSingletonMono>();
+            yield return null;
+        }
+
+        [UnityTearDown]
+        public IEnumerator TearStuffUp()
+        {
+            Object.Destroy(gameObject);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator ShouldNotBeNull()
+        {
+            Assert.IsNotNull(singleton);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator TwoSingletonShouldThrowException()
+        {
+            try
+            {
+                gameObject.AddComponent<TestSingletonMono>();
+                // LogAssert.Expect(LogType.Exception, "");
+                LogAssert.Expect(LogType.Error, "Trying to instance a second instance of singleton");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            yield return null;
+        }
+
+        public class TestSingletonMono : SingletonMonoBehaviour<TestSingletonMono>
+        {
+        }
     }
 }

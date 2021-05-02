@@ -7,15 +7,14 @@ public class GOPool : MonoBehaviour
     public int poolSize = 50;
     protected ObjectPool<GameObject> pool;
 
-     protected virtual void Awake()
+    protected virtual void Awake()
     {
         pool = new ObjectPool<GameObject>(poolSize);
-        CreatePool();
     }
 
-     protected virtual void Start()
+    protected virtual void Start()
     {
-        
+        CreatePool();
     }
 
     public GameObject PopDeactivatedObjectOrReturnNull()
@@ -28,6 +27,7 @@ public class GOPool : MonoBehaviour
                 return item;
             }
         }
+
         return null;
     }
 

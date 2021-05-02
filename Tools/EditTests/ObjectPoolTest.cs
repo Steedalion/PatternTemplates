@@ -1,20 +1,19 @@
 ﻿using System;
 using NUnit.Framework;
 using UnityEngine;
-using UnityToolbox.Tools;
 
-namespace Toolbox.Tools.Test
+namespace UnityToolbox.Tools.EditTests
 {
     public class ObjectPoolTest
     {
-        private readonly int initialPoolLength = 10;
+        private const int InitialPoolLength = 10;
         private ObjectPool<GameObject> objectPool;
 
 
         [SetUp]
         public void Build()
         {
-            objectPool = new ObjectPool<GameObject>(initialPoolLength);
+            objectPool = new ObjectPool<GameObject>(InitialPoolLength);
         }
 
         [TearDown]
@@ -65,33 +64,19 @@ namespace Toolbox.Tools.Test
         [Test]
         public void GetLength()
         {
-            Assert.AreEqual(objectPool.PoolSize, initialPoolLength);
+            Assert.AreEqual(objectPool.PoolSize, InitialPoolLength);
         }
 
         [Test]
         public void SetOutOfBoundShouldThrowAnError()
         {
-            try
-            {
-                objectPool.SetItem(10, new GameObject());
-                Assert.Fail("");
-            }
-            catch (Exception e)
-            {
-            }
+            Assert.Throws<PoolOutOfBoundException>(() => objectPool.SetItem(10, new GameObject()));
         }
 
         [Test]
         public void GetOutOfBoundShouldThrowAnError()
         {
-            try
-            {
-                objectPool.GetItem(10);
-                Assert.Fail("");
-            }
-            catch (Exception e)
-            {
-            }
+            Assert.Throws<PoolOutOfBoundException>(() => objectPool.GetItem(10));
         }
     }
 }
