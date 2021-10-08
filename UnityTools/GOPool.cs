@@ -1,45 +1,48 @@
 ﻿using UnityEngine;
 using UnityToolbox.Tools;
 
-public class GOPool : MonoBehaviour
+namespace UnityToolbox.UnityTools
 {
-    public GameObject[] types;
-    public int poolSize = 50;
-    protected ObjectPool<GameObject> pool;
-
-    protected virtual void Awake()
+    public class GOPool : MonoBehaviour
     {
-        pool = new ObjectPool<GameObject>(poolSize);
-    }
+        public GameObject[] types;
+        public int poolSize = 50;
+        protected ObjectPool<GameObject> pool;
 
-    protected virtual void Start()
-    {
-        CreatePool();
-    }
-
-    public GameObject PopDeactivatedObjectOrReturnNull()
-    {
-        for (int i = 0; i < poolSize; i++)
+        protected virtual void Awake()
         {
-            GameObject item = pool.GetItem(i);
-            if (!item.activeInHierarchy)
-            {
-                return item;
-            }
+            pool = new ObjectPool<GameObject>(poolSize);
         }
 
-        return null;
-    }
-
-    private void CreatePool()
-    {
-        int numberOfTypes = types.Length;
-        for (int i = 0; i < poolSize; i++)
+        protected virtual void Start()
         {
-            GameObject currentPrefab = types[i % numberOfTypes];
-            GameObject item = Instantiate(currentPrefab);
-            item.SetActive(false);
-            pool.SetItem(i, item);
+            CreatePool();
+        }
+
+        public GameObject PopDeactivatedObjectOrReturnNull()
+        {
+            for (int i = 0; i < poolSize; i++)
+            {
+                GameObject item = pool.GetItem(i);
+                if (!item.activeInHierarchy)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        private void CreatePool()
+        {
+            int numberOfTypes = types.Length;
+            for (int i = 0; i < poolSize; i++)
+            {
+                GameObject currentPrefab = types[i % numberOfTypes];
+                GameObject item = Instantiate(currentPrefab);
+                item.SetActive(false);
+                pool.SetItem(i, item);
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UnityToolbox.Tools
+﻿namespace UnityToolbox.Tools
 {
     public class Singleton<T> where T : new()
     {
@@ -22,16 +20,5 @@ namespace UnityToolbox.Tools
             }
         }
 
-    }
-
-    public class MultipleSingleton : Exception
-    {
-        public MultipleSingleton()
-        {
-        }
-
-        public MultipleSingleton(string message) : base(message)
-        {
-        }
     }
 }

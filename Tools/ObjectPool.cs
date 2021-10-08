@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UnityToolbox.Tools
+﻿namespace UnityToolbox.Tools
 {
     public class ObjectPool<T>
     {
@@ -29,21 +27,6 @@ namespace UnityToolbox.Tools
         public T[] GetPoolAsArray()
         {
             return pool;
-        }
-    }
-
-    public class PoolOutOfBoundException : Exception
-    {
-        public PoolOutOfBoundException()
-        {
-        }
-
-        public PoolOutOfBoundException(string message) : base(message)
-        {
-        }
-
-        public PoolOutOfBoundException(string message, Exception innerException) : base(message, innerException)
-        {
         }
     }
 }
