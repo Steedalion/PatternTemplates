@@ -1,5 +1,6 @@
 ﻿namespace UnityToolbox.Tools
 {
+    //
     public class Singleton<T> where T : new()
     {
         private static T instance;
